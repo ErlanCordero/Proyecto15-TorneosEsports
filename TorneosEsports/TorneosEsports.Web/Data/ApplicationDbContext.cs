@@ -3,7 +3,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace TorneosEsports.Web.Data
 {
-    public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : IdentityDbContext(options)
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        public ApplicationDbContext(
+            DbContextOptions<ApplicationDbContext> options)
+            : base(options)
+        {
+        }
+
+        public DbSet<BitacoraAccion> BitacoraAcciones { get; set; }
     }
 }

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<TorneosEsports.Web.Data.BitacoraAccion>
+
+@{
+    ViewData["Title"] = "Bitácora de acciones";
+}
+
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h1 class="fw-bold">Bitácora de acciones</h1>
+            <p class="text-muted">
+                Consulta los eventos de seguridad registrados en el sistema.
+            </p>
+        </div>
+
+        <a asp-controller="Admin"
+           asp-action="Index"
+           class="btn btn-outline-secondary">
+            Volver al panel
+        </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+        <div class="card-body">
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Fecha y hora (UTC)</th>
+                            <th>Correo del usuario</th>
+                            <th>Acción</th>
+                            <th>Detalle</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        @if (Model.Any())
+                        {
+                            @foreach (var registro in Model)
+                            {
+                                <tr>
+                                    <td>
+                                        @registro.FechaHora.ToString("yyyy-MM-dd HH:mm:ss")
+                                    </td>
+
+                                    <td>
+                                        @registro.CorreoUsuario
+                                    </td>
+
+                                    <td>
+                                        @if (registro.Accion == "Inicio de sesión")
+                                        {
+                                            <span class="badge bg-success">
+                                                @registro.Accion
+                                            </span>
+                                        }
+                                        else if (registro.Accion == "Inicio de sesión fallido")
+                                        {
+                                            <span class="badge bg-danger">
+                                                @registro.Accion
+                                            </span>
+                                        }
+                                        else if (registro.Accion == "Cierre de sesión")
+                                        {
+                                            <span class="badge bg-primary">
+                                                @registro.Accion
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary">
+                                                @registro.Accion
+                                            </span>
+                                        }
+                                    </td>
+
+                                    <td>
+                                        @registro.Detalle
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="4" class="text-center py-4">
+                                    No hay acciones registradas.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+
+            <p class="text-muted mb-0">
+                Se muestran como máximo los últimos 100 registros.
+            </p>
+
+        </div>
+    </div>
+
+</div>
