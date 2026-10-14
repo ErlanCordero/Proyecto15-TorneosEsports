@@ -255,6 +255,482 @@ namespace TorneosEsports.Web.Data.Migrations
                     b.ToTable("BitacoraAcciones");
                 });
 
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Equipo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("CapitanId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<bool>("Pagado")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TorneoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CapitanId");
+
+                    b.HasIndex("TorneoId", "Nombre")
+                        .IsUnique();
+
+                    b.ToTable("Equipos");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Evento", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CupoPuestos")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .HasMaxLength(1000)
+                        .HasColumnType("nvarchar(1000)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ImagenUrl")
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<decimal>("PrecioPase")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("Sede")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Fecha");
+
+                    b.ToTable("Eventos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CupoPuestos = 200,
+                            Descripcion = "Dos días de LAN con torneos de Valorant y League of Legends.",
+                            Fecha = new DateTime(2026, 11, 21, 9, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Nombre = "LAN Party Arena Heredia 2026",
+                            PrecioPase = 8000m,
+                            Sede = "Centro de convenciones, Heredia"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CupoPuestos = 120,
+                            Descripcion = "Equipos universitarios compiten en Counter-Strike 2 y Dota 2.",
+                            Fecha = new DateTime(2026, 11, 28, 10, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Nombre = "Copa Universitaria de Esports",
+                            PrecioPase = 5000m,
+                            Sede = "Gimnasio universitario, San José"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CupoPuestos = 80,
+                            Descripcion = "Cierre del año con torneos de Overwatch 2 y Rainbow Six Siege.",
+                            Fecha = new DateTime(2026, 12, 5, 16, 0, 0, 0, DateTimeKind.Unspecified),
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Nombre = "Noche LAN de Fin de Año",
+                            PrecioPase = 4000m,
+                            Sede = "Salón comunal, Alajuela"
+                        });
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.IntegranteEquipo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Correo")
+                        .IsRequired()
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
+
+                    b.Property<int>("EquipoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Nick")
+                        .IsRequired()
+                        .HasMaxLength(40)
+                        .HasColumnType("nvarchar(40)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipoId");
+
+                    b.ToTable("IntegrantesEquipo");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.ItemCarrito", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("ReferenciaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("ItemsCarrito");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.LineaPedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Cantidad")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Descripcion")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("nvarchar(150)");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("PrecioUnitario")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<int>("ReferenciaId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Tipo")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId");
+
+                    b.ToTable("LineasPedido");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Pago", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Aprobado")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Mensaje")
+                        .HasMaxLength(200)
+                        .HasColumnType("nvarchar(200)");
+
+                    b.Property<int>("PedidoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Referencia")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PedidoId")
+                        .IsUnique();
+
+                    b.ToTable("Pagos");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Partido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("EquipoAId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("EquipoBId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("EsBye")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("FechaResultado")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("GanadorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Posicion")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Ronda")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TorneoId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EquipoAId");
+
+                    b.HasIndex("EquipoBId");
+
+                    b.HasIndex("GanadorId");
+
+                    b.HasIndex("TorneoId", "Ronda", "Posicion")
+                        .IsUnique();
+
+                    b.ToTable("Partidos");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Pedido", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<decimal>("Total")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.Property<string>("UsuarioId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Pedidos");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Torneo", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("CierreInscripciones")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CupoEquipos")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Estado")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
+
+                    b.Property<int>("EventoId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("FechaCreacion")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Formato")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<string>("Juego")
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
+
+                    b.Property<decimal>("PrecioInscripcion")
+                        .HasPrecision(12, 2)
+                        .HasColumnType("decimal(12,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("EventoId", "Juego");
+
+                    b.ToTable("Torneos");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CierreInscripciones = new DateTime(2026, 11, 14, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 16,
+                            Estado = "Abierto",
+                            EventoId = 1,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "Valorant",
+                            PrecioInscripcion = 25000m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CierreInscripciones = new DateTime(2026, 11, 14, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 8,
+                            Estado = "Abierto",
+                            EventoId = 1,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "League of Legends",
+                            PrecioInscripcion = 25000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CierreInscripciones = new DateTime(2026, 11, 21, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 8,
+                            Estado = "Abierto",
+                            EventoId = 2,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "Counter-Strike 2",
+                            PrecioInscripcion = 20000m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CierreInscripciones = new DateTime(2026, 11, 21, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 8,
+                            Estado = "Abierto",
+                            EventoId = 2,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "Dota 2",
+                            PrecioInscripcion = 20000m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CierreInscripciones = new DateTime(2026, 11, 28, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 8,
+                            Estado = "Abierto",
+                            EventoId = 3,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "Overwatch 2",
+                            PrecioInscripcion = 15000m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CierreInscripciones = new DateTime(2026, 11, 28, 23, 59, 0, 0, DateTimeKind.Unspecified),
+                            CupoEquipos = 8,
+                            Estado = "Abierto",
+                            EventoId = 3,
+                            FechaCreacion = new DateTime(2026, 10, 9, 0, 0, 0, 0, DateTimeKind.Utc),
+                            Formato = "Eliminación directa 5v5",
+                            Juego = "Rainbow Six Siege",
+                            PrecioInscripcion = 15000m
+                        });
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -304,6 +780,122 @@ namespace TorneosEsports.Web.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Equipo", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Data.ApplicationUser", "Capitan")
+                        .WithMany()
+                        .HasForeignKey("CapitanId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Torneo", "Torneo")
+                        .WithMany("Equipos")
+                        .HasForeignKey("TorneoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Capitan");
+
+                    b.Navigation("Torneo");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.IntegranteEquipo", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Equipo", "Equipo")
+                        .WithMany("Integrantes")
+                        .HasForeignKey("EquipoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Equipo");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.LineaPedido", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Pedido", "Pedido")
+                        .WithMany("Lineas")
+                        .HasForeignKey("PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Pago", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Pedido", "Pedido")
+                        .WithOne("Pago")
+                        .HasForeignKey("TorneosEsports.Web.Models.Entidades.Pago", "PedidoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Pedido");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Partido", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Equipo", "EquipoA")
+                        .WithMany()
+                        .HasForeignKey("EquipoAId");
+
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Equipo", "EquipoB")
+                        .WithMany()
+                        .HasForeignKey("EquipoBId");
+
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Equipo", "Ganador")
+                        .WithMany()
+                        .HasForeignKey("GanadorId");
+
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Torneo", "Torneo")
+                        .WithMany("Partidos")
+                        .HasForeignKey("TorneoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("EquipoA");
+
+                    b.Navigation("EquipoB");
+
+                    b.Navigation("Ganador");
+
+                    b.Navigation("Torneo");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Torneo", b =>
+                {
+                    b.HasOne("TorneosEsports.Web.Models.Entidades.Evento", "Evento")
+                        .WithMany("Torneos")
+                        .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Evento");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Equipo", b =>
+                {
+                    b.Navigation("Integrantes");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Evento", b =>
+                {
+                    b.Navigation("Torneos");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Pedido", b =>
+                {
+                    b.Navigation("Lineas");
+
+                    b.Navigation("Pago");
+                });
+
+            modelBuilder.Entity("TorneosEsports.Web.Models.Entidades.Torneo", b =>
+                {
+                    b.Navigation("Equipos");
+
+                    b.Navigation("Partidos");
                 });
 #pragma warning restore 612, 618
         }
