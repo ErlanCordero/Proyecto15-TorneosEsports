@@ -19,6 +19,7 @@ public class CatalogoController : Controller
         var consulta = _context.Eventos
             .AsNoTracking()
             .Include(e => e.Torneos)
+                .ThenInclude(t => t.Equipos)
             .Where(e => e.Fecha >= DateTime.Now);
 
         if (!string.IsNullOrWhiteSpace(q))
